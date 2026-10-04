@@ -1,0 +1,34 @@
+trigger:
+  batch: "true"
+  branches:
+    include:
+      - release/*
+pool:
+  vmImage: "macos-latest"
+
+steps:
+  - pwsh: |
+      npm ci
+    displayName: Install root dependencies
+    workingDirectory: "$(Build.SourcesDirectory)"
+
+  - pwsh: |
+      node scripts/stamp-prerelease-version.mjs "$(Build.BuildNumber)" --label pr
+    displayName: Stamp build as pull request version
+    workingDirectory: "$(Build.SourcesDirectory)"
+
+  - template: ./templates/build-mssql.yml@self
+    parameters:
+      packageOffline: false # don't build offline packages for PR builds to speed runs up
+
+  - template: ./templates/build-sql-database-projects.yml@self
+
+  - template: ./templates/build-data-workspace.yml@self
+
+  - template: ./templates/build-database-management-keymap.yml@self
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publish artifacts
+    inputs:
+      targetPath: "$(Build.ArtifactStagingDirectory)/vsix"
+      artifact: drop
